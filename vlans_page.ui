@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VlansPage</class>
+ <widget class="QWidget" name="VlansPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>680</width>
+    <height>620</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>VLANs</string>
+  </property>
+  <layout class="QVBoxLayout" name="layoutRaiz">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="lblInstrucao">
+     <property name="font">
+      <font>
+       <family>Consolas</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>VLANs a configurar no switch:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTableWidget" name="tableVlans">
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+     </property>
+     <property name="columnCount">
+      <number>2</number>
+     </property>
+     <row/>
+     <row/>
+     <row/>
+     <column>
+      <property name="text">
+       <string>ID da VLAN</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Nome da VLAN</string>
+      </property>
+     </column>
+     <item row="0" column="0">
+      <property name="text">
+       <string>10</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+     <item row="0" column="1">
+      <property name="text">
+       <string>VLAN_DADOS</string>
+      </property>
+     </item>
+     <item row="1" column="0">
+      <property name="text">
+       <string>20</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+     <item row="1" column="1">
+      <property name="text">
+       <string>VLAN_VOZ</string>
+      </property>
+     </item>
+     <item row="2" column="0">
+      <property name="text">
+       <string>50</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+     <item row="2" column="1">
+      <property name="text">
+       <string>VLAN_SEGURANCA</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grpAdicionar">
+     <property name="title">
+      <string>Adicionar VLAN à lista</string>
+     </property>
+     <layout class="QHBoxLayout" name="layoutAdicionar">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="lblId">
+        <property name="text">
+         <string>ID:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinVid">
+        <property name="prefix">
+         <string>VLAN </string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>4094</number>
+        </property>
+        <property name="value">
+         <number>60</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblNome">
+        <property name="text">
+         <string>Nome:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineVnome">
+        <property name="placeholderText">
+         <string>Nome (ex: VLAN_TI)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAdicionar">
+        <property name="text">
+         <string>+ Adicionar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRemoverLista">
+        <property name="text">
+         <string>− Remover da lista</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRestaurar">
+        <property name="text">
+         <string>↺ Restaurar padrões</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grpExcluir">
+     <property name="title">
+      <string>Excluir VLAN no Switch</string>
+     </property>
+     <layout class="QHBoxLayout" name="layoutExcluir">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="lblInfoExcluir">
+        <property name="text">
+         <string>Selecione uma VLAN na tabela e clique em 'Excluir no Switch'
+para enviar o comando  no vlan &lt;id&gt;  ao equipamento.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnExcluirSwitch">
+        <property name="text">
+         <string>🗑  Excluir no Switch</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+ <slots>
+  <slot>on_btnAdicionar_clicked()</slot>
+  <slot>on_btnRemoverLista_clicked()</slot>
+  <slot>on_btnRestaurar_clicked()</slot>
+  <slot>on_btnExcluirSwitch_clicked()</slot>
+ </slots>
+</ui>
