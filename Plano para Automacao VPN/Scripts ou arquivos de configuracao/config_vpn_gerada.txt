@@ -1,0 +1,43 @@
+
+#      FORTIGATE CLI
+config vpn ipsec phase1-interface
+    edit "VPN-TO-PALO"
+        set interface "wan1"
+        set peertype any
+        set proposal aes256-sha256
+        set dhgrp 14
+        set remote-gw 187.51.100.68
+        set psksecret wdvefbvwrbwr
+    next
+end
+
+config vpn ipsec phase2-interface
+    edit "VPN-TO-PALO_P2"
+        set phase1name "VPN-TO-PALO"
+        set proposal aes256-sha256
+        set dhgrp 14
+        set src-subnet 192.168.20.0/24
+        set dst-subnet 192.168.21.0/24
+    next
+end
+
+config firewall policy
+    edit 0
+        set name "VPN_ALLOW_OUT"
+        set srcintf "internal"
+        set dstintf "VPN-TO-PALO"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+    next
+end
+
+
+#      PALO ALTO 
+set network ike gateway GW-TO-FORTI protocol ikev2 ike-crypto-profile default local-address 187.51.100.68 protocol-common psk wdvefbvwrbwr peer-address 200.155.99.34
+set network interface tunnel units tunnel.1 ip 169.255.20.65/30
+set network ipsec tunnel VPN-TO-FORTI tunnel-interface tunnel.1 ak-ike-gateway GW-TO-FORTI ak-ipsec-crypto-profile default
+
+set rulebase security rules "ALLOW-VPN-IN" from VPN to Trust source any destination any action allow
