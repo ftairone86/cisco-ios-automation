@@ -1,0 +1,76 @@
+
+# ========================================
+# FORTIGATE - VPN IPSec Configuration
+# ========================================
+
+config vpn ipsec phase1-interface
+    edit "VPN-TO-PALO"
+        set interface "wan1"
+        set peertype any
+        set proposal aes192-sha512
+        set dhgrp 15
+        set remote-gw 200.34.56.78
+        set psksecret dsvuonvoqenv
+        set lifetime 300
+    next
+end
+
+config vpn ipsec phase2-interface
+    edit "VPN-TO-PALO_P2"
+        set phase1name "VPN-TO-PALO"
+        set proposal aes192-sha512
+        set dhgrp 15
+        set src-subnet 192.168.20.0/24
+        set dst-subnet 192.168.21.0/24
+        set lifetime 300
+    next
+end
+
+config firewall policy
+    edit 0
+        set name "VPN_ALLOW_OUT"
+        set srcintf "internal"
+        set dstintf "VPN-TO-PALO"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+end
+
+# Backup config
+execute backup config flash forti_backup.conf
+
+
+# ========================================
+# PALO ALTO - IKE and IPSec Configuration
+# ========================================
+
+set network ike crypto ike-crypto-profiles default dh-groups [ group15 ]
+set network ike crypto ike-crypto-profiles default encryptions [ aes192 ]
+set network ike crypto ike-crypto-profiles default hash-algorithms [ sha512 ]
+
+set network ike gateway GW-TO-FORTI protocol ikev2 ike-crypto-profile default local-address 200.34.56.78
+set network ike gateway GW-TO-FORTI protocol-common psk dsvuonvoqenv
+set network ike gateway GW-TO-FORTI protocol-common lifetime seconds 300
+set network ike gateway GW-TO-FORTI peer-address 187.45.67.98
+
+set network ipsec crypto ipsec-crypto-profiles default dh-groups [ group15 ]
+set network ipsec crypto ipsec-crypto-profiles default encryptions [ aes192 ]
+set network ipsec crypto ipsec-crypto-profiles default hash-algorithms [ sha512 ]
+
+set network interface tunnel units tunnel.1 ip 169.255.20.65/30
+set network ipsec tunnel VPN-TO-PALO tunnel-interface tunnel.1 ak-ike-gateway GW-TO-FORTI
+set network ipsec tunnel VPN-TO-PALO ak-ipsec-crypto-profile default
+set network ipsec tunnel VPN-TO-PALO lifetime seconds 300
+
+set rulebase security rules "ALLOW-VPN-IN" from VPN to Trust
+set rulebase security rules "ALLOW-VPN-IN" source any
+set rulebase security rules "ALLOW-VPN-IN" destination any
+set rulebase security rules "ALLOW-VPN-IN" action allow
+set rulebase security rules "ALLOW-VPN-IN" log-setting "Traffic Logs"
+
+# Commit configuration
+commit
