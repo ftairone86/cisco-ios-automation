@@ -151,7 +151,13 @@ Para versões sem API REST ou configurações legadas:
 pip install netmiko   # suporta device_type="fortinet"
 ```
 
----
+#### FortiManager (gerenciamento centralizado)
+Se os dispositivos forem gerenciados pelo **FortiManager**, toda a configuração
+pode ser aplicada via SON-RPC API: O FortiManager expõe uma API robusta que 
+permite criar objetos, modificar regras e disparar a instalação de políticas 
+programaticamente, integrando-se bem com ferramentas de CI/CD e orquestração 
+e distribuída para os dispositivos.Isso é especialmente útil em ambientes 
+com múltiplos firewalls.
 
 ### 3.2 Palo Alto — PAN-OS
 
@@ -189,7 +195,6 @@ pip install pan-os-python
 Se os dispositivos forem gerenciados pelo **Panorama**, toda a configuração
 pode ser aplicada via API do Panorama e distribuída para os dispositivos.
 Isso é especialmente útil em ambientes com múltiplos firewalls.
-Muito util para uso de API uma vez que já se possuí um gerenciamento centralizado, mais fácil controlar todos ao mesmo tempo
 
 ---
 
@@ -204,7 +209,7 @@ Muito util para uso de API uma vez que já se possuí um gerenciamento centraliz
 
 Se pensarmos um pouco veremos que temos diversas soluções que podem agregar para diversos tipos de ambientes
 digamos que eu tenho tudo em apliance, podemos usar o IAC (infra como código) onde entra a orquestração declarada
-com Ansible e Terraform para subir o ambiente em multicloud ou on-primeses. 
+com Ansible e Terraform para subir o ambiente em multicloud eonprimeses. 
 
 ---
 
