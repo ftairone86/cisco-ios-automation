@@ -189,6 +189,7 @@ pip install pan-os-python
 Se os dispositivos forem gerenciados pelo **Panorama**, toda a configuração
 pode ser aplicada via API do Panorama e distribuída para os dispositivos.
 Isso é especialmente útil em ambientes com múltiplos firewalls.
+Muito util para uso de API uma vez que já se possuí um gerenciamento centralizado, mais fácil controlar todos ao mesmo tempo
 
 ---
 
@@ -203,7 +204,7 @@ Isso é especialmente útil em ambientes com múltiplos firewalls.
 
 Se pensarmos um pouco veremos que temos diversas soluções que podem agregar para diversos tipos de ambientes
 digamos que eu tenho tudo em apliance, podemos usar o IAC (infra como código) onde entra a orquestração declarada
-com Ansible e Terraform para subir o ambiente em multicloud eonprimeses. 
+com Ansible e Terraform para subir o ambiente em multicloud ou on-primeses. 
 
 ---
 
